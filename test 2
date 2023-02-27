@@ -1,0 +1,96 @@
+int INA_1 = 7;
+int INA_2 = 8;
+int INB_1 = 9;
+int INB_2 = 4;
+
+int motor_2_status =0; // 0=off , 1=on
+
+int endstop_1_status =0;
+int endstop_1_pin =2;
+
+int endstop_2_pin=3;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(INA_1,OUTPUT);
+  pinMode(INA_2,OUTPUT);
+  pinMode(INB_1,OUTPUT);
+  pinMode(INB_2,OUTPUT);
+  
+  pinMode(5,OUTPUT);
+  digitalWrite(5,HIGH);
+  pinMode(6,OUTPUT);
+  digitalWrite(6,HIGH);
+
+  pinMode(endstop_1_pin,INPUT_PULLUP);
+  pinMode(endstop_2_pin,INPUT_PULLUP);
+  
+
+
+}
+
+void loop() {
+ 
+  motor1_cw(); //n sanie cw micharkhe
+  Serial.println("motor1_cw");
+  delay(3000);
+  motor1_stop();// n sanie tavaghof
+  Serial.println("motor1_stop");
+  delay(1000);
+  motor1_ccw();// n sanie ccw charkhesh dare
+  Serial.println("motor1_ccw");
+  delay(3000);
+  motor1_stop();// n sanie max
+  Serial.println("motor1_stop");
+  delay(1500);
+
+  
+  while (digitalRead(endstop_1_pin)==HIGH){
+      motor2_cw(); // motor 2 roshan
+      Serial.println("motor2_roshan , wait for endstop1");
+
+      if (digitalRead(endstop_1_pin)!=HIGH){
+        motor2_ccw();
+        Serial.println("endstop 1 touch");
+      
+        while (digitalRead(endstop_2_pin)==HIGH){
+          Serial.println("charkhesh pad s,at,wating for touch endstop 2 ");
+          if(digitalRead(endstop_2_pin)!=HIGH){
+            motor2_stop();
+            Serial.println("motor2 stop");
+
+          
+        }
+      } 
+      }          
+      }
+  }
+
+
+
+void motor1_cw(){
+    digitalWrite(INA_1,HIGH);
+    digitalWrite(INA_2,LOW);
+}
+void motor1_ccw(){
+    digitalWrite(INA_1,LOW);
+    digitalWrite(INA_2,HIGH);
+}
+void motor1_stop(){
+    digitalWrite(INA_1,LOW);
+    digitalWrite(INA_2,LOW);
+}
+
+
+void motor2_cw(){
+    digitalWrite(INB_1,HIGH);
+    digitalWrite(INB_2,LOW);
+}
+void motor2_ccw(){
+    digitalWrite(INB_1,LOW);
+    digitalWrite(INB_2,HIGH);
+}
+void motor2_stop(){
+    digitalWrite(INB_1,LOW);
+    digitalWrite(INB_2,LOW);
+}
