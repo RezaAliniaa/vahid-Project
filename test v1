@@ -1,0 +1,58 @@
+int INA_1 = 7;
+int INA_2 = 8;
+int INB_1 = 9;
+int INB_2 = 4;
+
+void setup() {
+  pinMode(INA_1,OUTPUT);
+  pinMode(INA_2,OUTPUT);
+  pinMode(INB_1,INPUT_PULLUP);
+  pinMode(INB_2,OUTPUT);
+  pinMode(5,OUTPUT);
+  digitalWrite(5,HIGH);
+  
+
+
+}
+
+void loop() {
+ 
+  motor1_cw(); //n sanie cw micharkhe
+  delay(5000);
+  motor1_stop();// n sanie tavaghof 
+  delay(2000);
+  motor1_ccw();// n sanie ccw charkhesh dare
+  delay(5000);
+  motor1_stop();// n sanie max
+  delay(3000);
+  
+  while true
+}
+
+
+void motor1_cw(){
+    digitalWrite(INA_1,HIGH);
+    digitalWrite(INA_2,LOW);
+}
+void motor1_ccw(){
+    digitalWrite(INA_1,LOW);
+    digitalWrite(INA_2,HIGH);
+}
+void motor1_stop(){
+    digitalWrite(INA_1,LOW);
+    digitalWrite(INA_2,LOW);
+}
+
+
+void motor2_cw(){
+    digitalWrite(INB_1,HIGH);
+    digitalWrite(INB_2,LOW);
+}
+void motor2_ccw(){
+    digitalWrite(INB_1,LOW);
+    digitalWrite(INB_2,HIGH);
+}
+void motor2_stop(){
+    digitalWrite(INB_1,LOW);
+    digitalWrite(INB_2,LOW);
+}
